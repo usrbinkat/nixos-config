@@ -22,7 +22,7 @@
       flake = false;
     }; 
     cask-fonts = {
-      url = "github:homebrew/cask-fonts";
+      url = "github:homebrew/homebrew-cask-fonts";
       flake = false;
     }; 
     disko = {
@@ -70,7 +70,7 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/cask-fonts" = cask-fonts;
+                  "homebrew/homebrew-cask-fonts" = cask-fonts;
                 };
                 mutableTaps = false;
                 autoMigrate = true;
