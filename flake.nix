@@ -35,7 +35,7 @@
     };
   };
 
-  outputs = { self, darwin, nix-homebrew, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-core, homebrew-cask, cask-fonts, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
     let
       user = "usrbinkat";
       systems = [ "x86_64-linux" "aarch64-darwin" ];
