@@ -1,4 +1,6 @@
-#!/bin/sh -e
+#!/bin/bash -ex
+
+set -x
 
 VERSION=1.0
 
