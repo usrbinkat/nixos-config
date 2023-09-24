@@ -21,6 +21,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     }; 
+    cask-fonts = {
+      url = "github:homebrew/cask-fonts";
+      flake = false;
+    }; 
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -66,6 +70,7 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
+                  "homebrew/cask-fonts" = cask-fonts;
                 };
                 mutableTaps = false;
                 autoMigrate = true;
