@@ -5,7 +5,7 @@ let
   # Define the content of your file as a derivation
   myEmacsLauncher = pkgs.writeScript "emacs-launcher.command" ''
     #!/bin/sh
-      emacsclient -c -n &
+    emacsclient -c -n &
   '';
   sharedFiles = import ../shared/files.nix { inherit config pkgs; };
   additionalFiles = import ./files.nix { inherit config pkgs; };
@@ -23,8 +23,6 @@ in
     shell = pkgs.zsh;
   };
 
-  # This is a module from nix-darwin
-  # Homebrew is *installed* via the flake input nix-homebrew
   homebrew.enable = true;
   homebrew.casks = pkgs.callPackage ./casks.nix {};
 
@@ -37,11 +35,7 @@ in
   #
   homebrew.masApps = {
     "1password" = 1333542190;
-    "canva" = 897446215;
-    "drafts" = 1435957248;
-    "hidden-bar" = 1452453066;
     "wireguard" = 1451685025;
-    "yoink" = 457622435;
   };
 
   # Enable home-manager
@@ -109,7 +103,6 @@ in
     { path = "/Applications/Slack.app/"; }
     { path = "/System/Applications/Messages.app/"; }
     { path = "/System/Applications/Facetime.app/"; }
-    { path = "/Applications/Telegram.app/"; }
     { path = "${pkgs.alacritty}/Applications/Alacritty.app/"; }
     { path = "/System/Applications/Music.app/"; }
     { path = "/System/Applications/News.app/"; }
@@ -134,5 +127,4 @@ in
       options = "--sort name --view grid --display stack";
     }
   ];
-
 }

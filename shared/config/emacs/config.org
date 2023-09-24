@@ -17,7 +17,7 @@ Just me!
 #+NAME: personal-info
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Kat Morgan"
-    user-mail-address "usrbinkat@braincraft.io")
+    user-mail-address "kat@braincraft.io")
 #+END_SRC
 
 ** Initialization
@@ -431,7 +431,6 @@ Initialize org-agenda file and set some key bindings to create tasks.
 #+NAME::org-mode-agenda
 #+BEGIN_SRC emacs-lisp
   (setq org-agenda-files "~/.emacs.d/agenda.txt" )
-  (setq org-archive-location "~/.local/share/org-roam/20220318132418-archive.org::")
 
   (defun my-org-insert-subheading (heading-type)
   "Inserts a new org heading with unique ID and creation date.
@@ -477,36 +476,6 @@ Initialize org-agenda file and set some key bindings to create tasks.
   (define-key 'my-org-todo-prefix (kbd "p") 'my-org-insert-project)
 
   (define-key org-mode-map (kbd "C-c l") 'my-org-copy-link-from-id)
-#+END_SRC
-
-**** Capture templates
-#+NAME::org-capture-templates
-#+BEGIN_SRC emacs-lisp
-  (setq org-capture-templates
-      `(("t" "Todo" entry (file+headline ,"~/.local/share/org-roam/20220419121404-todo.org" "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("p" "Project" entry (file+headline ,"~/.local/share/org-roam/20220419121404-todo.org" "Projects")
-         "* PROJECT %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("h" "Health" entry (file+headline ,"~/.local/share/org-roam/20230712154159-health.org" "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("H" "Health Project" entry (file+headline ,"~/.local/share/org-roam/20230712154159-health.org" "Projects")
-         "* PROJECT %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("f" "Family/Social" entry (file+headline ,"~/.local/share/org-roam/20230712154441-family_social.org" "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("F" "Family/Social Project" entry (file+headline ,"~/.local/share/org-roam/20230712154441-family_social.org" "Projects")
-         "* PROJECT %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("b" "Business" entry (file+headline ,"~/.local/share/org-roam/20230712154303-business.org" "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("B" "Business Project" entry (file+headline ,"~/.local/share/org-roam/20230712154303-business.org" "Projects")
-         "* PROJECT %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("l" "Home Lab" entry (file+headline ,"~/.local/share/org-roam/20210919225144-home_lab.org" "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("L" "Home Lab Project" entry (file+headline ,"~/.local/share/org-roam/20210919225144-home_lab.org" "Projects")
-         "* PROJECT %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("v" "Braeview" entry (file+headline ,"~/.local/share/org-roam/20210814100042-braeview.org" "Tasks")
-         "* TODO %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a\n:END:\n\n%i")
-        ("V" "Braeview Project" entry (file+headline ,"~/.local/share/org-roam/20210814100042-braeview.org" "Projects")
-         "* PROJECT %?\n:PROPERTIES:\n:ID:       %(org-id-uuid)\n:CREATED:  %U\n:SOURCE:  %a]\n:END:\n\n%i")))
 #+END_SRC
 
 **** Set org faces
@@ -580,14 +549,6 @@ This block sets the ~org-agenda-prefix-format~ in an friendly way for ~org-roam~
           (s-truncate len (s-pad-right len " " result))
         result)))
 
-  (setq org-agenda-hide-tags-regexp (regexp-opt '("Todo" "home" "work")))
-
-  (setq org-agenda-prefix-format
-        '((agenda . " %i %(dl/agenda-category 12)%?-32t% s")
-          (todo . " %i %(dl/agenda-category 32) ")
-          (tags . " %i %(dl/agenda-category 32) ")
-          (search . " %i %(dl/agenda-category 32) ")))
-
   (evil-set-initial-state 'org-agenda-mode 'normal)
   (with-eval-after-load 'org-agenda
     (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-line)
@@ -633,10 +594,6 @@ Setup for ~org-super-agenda~ and ~org-ql~.
        :todo "WAITING")
       (:name "Tasks"
        :todo "TODO")
-      (:name "Learn"
-       :tag "learn")
-      (:name "Braeview"
-       :tag "braeview")
       (:name "Someday"
        :todo "SOMEDAY")
     (:name "Projects"
@@ -661,11 +618,6 @@ Let's us move text but still see it in another file. I primarily use this to mov
       (org-element-map (org-element-parse-buffer) 'keyword
       (lambda (el) (when (string-match property (org-element-property :key el)) el)))))
 
-  (defun dl/refile-and-transclude ()
-    "Move file and add transclude link with header"
-  (interactive)
-    (org-roam-refile)
-    (insert "#+transclude: [[file:~/.local/share/org-roam/20220419121404-todo.org::*" (org-element-property :value (car (org-global-props "TITLE"))) "][Transclude]]"))
 #+END_SRC
 
 *** Install package
@@ -682,26 +634,6 @@ If you haven't heard of org mode, go watch [[https://www.youtube.com/watch?v=SzA
     "Helper function to open a file in a buffer"
     (interactive)
     (find-file path))
-
-  (defun dl/load-buffer-with-emacs-config ()
-    "Open the emacs configuration"
-    (interactive)
-    (dl/find-file "~/.local/share/src/nixos-config/shared/config/emacs/config.org"))
-
-  (defun dl/load-buffer-with-todo ()
-    "Open the emacs configuration"
-    (interactive)
-    (dl/find-file "~/.local/share/org-roam/20220419121404-todo.org"))
-
-  (defun dl/load-buffer-with-nix-config ()
-    "Open the emacs configuration"
-    (interactive)
-    (dl/find-file "~/.local/share/src/nixos-config/shared/home-manager.nix"))
-
-  (defun dl/load-buffer-with-good-data-lol ()
-    "Open the emacs configuration"
-    (interactive)
-    (dl/find-file "~/.local/share/src/good-data-lol/apps/orchestrator/src/index.ts"))
 
   (defun dl/reload-emacs ()
     "Reload the emacs configuration"
@@ -740,20 +672,8 @@ If you haven't heard of org mode, go watch [[https://www.youtube.com/watch?v=SzA
   "A few of my own personal shortcuts"
   (dl/leader-keys
     ","  '(dl/insert-header :which-key "insert header")
-    "<"  '(dl/insert-current-time :which-key "insert header with current time")
-    "n"  '(dl/load-buffer-with-nix-config :which-key "open nix config")
-    "g"  '(dl/load-buffer-with-good-data-lol :which-key "open good data")
-    "d"  '(dl/load-buffer-with-todo :which-key "open todo"))
+    "<"  '(dl/insert-current-time :which-key "insert header with current time"))
   #+END_SRC
-
-***** Snippets
-Manages my ability to use code snippets.
-
-#+NAME::yasnippet
-#+BEGIN_SRC emacs-lisp
-  (use-package yasnippet)
-  (yas-global-mode 1)
-#+END_SRC
 
 ***** Roam capture templates
 These are templates used to create new notes.
@@ -773,7 +693,7 @@ These are templates used to create new notes.
 #+BEGIN_SRC emacs-lisp
   (require 'ucs-normalize)
   (use-package org-roam
-    :straight (:host github :repo "usrbinkat/org-roam"
+    :straight (:host github :repo "org-roam/org-roam"
                :branch "master"
                :files (:defaults "extensions/*")
     :build (:not compile))
@@ -817,7 +737,6 @@ These are templates used to create new notes.
      :if-new (file+head "%<%Y-%m-%d>.org"
                         (lambda () (concat ":PROPERTIES:\n:ID:       " (org-id-new) "\n:END:\n"
                                            "#+TITLE: %<%Y-%m-%d>\n#+filetags: Daily \n" ; Added space here
-                                           "[[id:F355F26D-E4E5-4CF5-99EA-E77846D47FAF][Workflow]]\n\n"
                                            "* Log\n"))))))
 #+END_SRC
 
@@ -1193,8 +1112,7 @@ Everything related to spell and grammar checking.
     (with-eval-after-load "ispell"
       (setq ispell-program-name
         (expand-file-name ".nix-profile/bin/hunspell" (getenv "HOME")))
-      (setq ispell-dictionary "en_US"))
-    (setq ispell-personal-dictionary "~/.local/share/dict/user/hunspell_en_US"))
+      (setq ispell-dictionary "en_US")))
 
   (use-package flyspell-correct
     :after flyspell

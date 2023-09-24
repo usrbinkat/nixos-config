@@ -141,7 +141,7 @@ Print
 
 # Lock the screen
 ctrl + alt + BackSpace
-        i3lock -i /home/usrbinkat/.i3/lock-screen.png
+        i3lock
 
 # Audio controls for + volume
 XF86AudioRaiseVolume

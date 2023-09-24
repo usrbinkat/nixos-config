@@ -1,6 +1,6 @@
 
 {
-  description = "NixOS and MacOS Configuration";
+  description = "Starter Configuration for NixOS and MacOS";
 
   inputs = {
     nixpkgs.url = "github:usrbinkat/nixpkgs/master";
@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     secrets = {
-      url = "git+ssh://git@github.com/usrbinkat/nix-secrets.git";
+      url = "git+ssh://git@github.com/usrbinkat/nix-secrets.git"; # Change this!
       flake = false;
     };
   };
@@ -34,12 +34,12 @@
   outputs = { self, darwin, nix-homebrew, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
     let
       user = "usrbinkat";
-      linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
-      darwinSystems = [ "aarch64-darwin" ];
-      forAllLinuxSystems = f: nixpkgs.lib.genAttrs linuxSystems (system: f system);
-      forAllDarwinSystems = f: nixpkgs.lib.genAttrs darwinSystems (system: f system);
-      forAllSystems = f: nixpkgs.lib.genAttrs (linuxSystems ++ darwinSystems) (system: f system);
-      devShell = system: let pkgs = nixpkgs.legacyPackages.${system}; in {
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      devShell = system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
         default = with pkgs; mkShell {
           nativeBuildInputs = with pkgs; [ bashInteractive git age age-plugin-yubikey ];
           shellHook = with pkgs; ''
@@ -47,49 +47,18 @@
           '';
         };
       };
-      mkApp = scriptName: system: {
-        type = "app";
-        program = "${(nixpkgs.legacyPackages.${system}.writeScriptBin scriptName ''
-          #!/usr/bin/env bash
-          PATH=${nixpkgs.legacyPackages.${system}.git}/bin:$PATH
-          print "Running ${scriptName} for ${system}"
-          exec ${self}/apps/${system}/${scriptName}
-        '')}/bin/${scriptName}";
-      };
-      mkLinuxApps = system: {
-        "install" = mkApp "install" system;
-        "installWithSecrets" = mkApp "installWithSecrets" system;
-        "copyKeys" = mkApp "copyKeys" system;
-        "createKeys" = mkApp "createKeys" system;
-        "checkKeys" = mkApp "checkKeys" system;
-      };
-      mkDarwinApps = system: {
-        "copyKeys" = mkApp "copyKeys" system;
-        "createKeys" = mkApp "createKeys" system;
-        "checkKeys" = mkApp "checkKeys" system;
-      };
     in
     {
-      templates = {
-        starter = {
-          path = ./templates/starter;
-          description = "Starter configuration";
-        };
-        starterWithSecrets = {
-          path = ./templates/starterWithSecrets;
-          description = "Starter configuration with secrets";
-        };
-      };
 
       devShells = forAllSystems devShell;
-      apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
+
       darwinConfigurations = let user = "usrbinkat"; in {
-        "Dustins-MBP" = darwin.lib.darwinSystem {
+        macos = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = inputs;
           modules = [
-            home-manager.darwinModules.home-manager
             nix-homebrew.darwinModules.nix-homebrew
+            home-manager.darwinModules.home-manager
             {
               nix-homebrew = {
                 enable = true;
@@ -106,8 +75,9 @@
           ];
         };
       };
+
       nixosConfigurations = let user = "usrbinkat"; in {
-        felix = nixpkgs.lib.nixosSystem {
+        nixos = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = inputs;
           modules = [
@@ -121,5 +91,5 @@
           ];
         };
       };
-    };
+  };
 }
