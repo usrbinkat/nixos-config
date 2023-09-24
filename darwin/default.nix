@@ -81,10 +81,15 @@ let user = "usrbinkat"; in
 
       dock = {
         autohide = true;
-        show-recents = false;
         launchanim = true;
+        static-only = false;
         orientation = "bottom";
+        show-recents = false;
+        magnification = true;
+        mouse-over-hilite-stack = true;
+        minimize-to-application = true;
         tilesize = 48;
+        largesize = 58;
       };
 
       finder = {
