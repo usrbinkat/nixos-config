@@ -74,8 +74,8 @@ let name = "Kat Morgan";
     extraConfig = {
       init.defaultBranch = "main";
       core = { 
-	    editor = "vim";
-        autocrlf = "input";
+            editor = "vim";
+            autocrlf = "input";
       };
       commit.gpgsign = true;
       pull.rebase = true;
@@ -201,16 +201,16 @@ let name = "Kat Morgan";
       };
 
       window = {
-        opacity = 1.0;
+        opacity = 0.93;
         padding = {
-          x = 24;
-          y = 24;
+          x = 2;
+          y = 2;
         };
       };
 
       font = {
         normal = {
-          family = "MesloLGS NF";
+          family = "UbuntuMono Nerd Font Propo"; # CHANGED
           style = "Regular";
         };
         size = lib.mkMerge [
@@ -219,7 +219,7 @@ let name = "Kat Morgan";
         ];
       };
 
-      dynamic_padding = true;
+      dynamic_padding = false;
       decorations = "full";
       title = "Terminal";
       class = {
@@ -288,7 +288,7 @@ let name = "Kat Morgan";
       {
         plugin = power-theme;
         extraConfig = ''
-           set -g @tmux_power_theme 'gold'
+           set -g @tmux_power_theme 'violet'
         '';
       }
       {
@@ -311,7 +311,7 @@ let name = "Kat Morgan";
       }
     ];
     terminal = "screen-256color";
-    prefix = "C-x";
+    prefix = "C-a";
     escapeTime = 10;
     historyLimit = 50000;
     extraConfig = ''
@@ -327,10 +327,14 @@ let name = "Kat Morgan";
 
       # Unbind default keys
       unbind C-b
-      unbind '"'
-      unbind %
+
+      # remap prefix from 'C-b' to 'C-a'
+      set-option -g prefix C-a
+      bind-key C-a send-prefix
 
       # Split panes, vertical or horizontal
+      #unbind '"'
+      #unbind %
       bind-key x split-window -v
       bind-key v split-window -h
 
