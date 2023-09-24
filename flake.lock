@@ -37,6 +37,22 @@
         "type": "github"
       }
     },
+    "cask-fonts": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695522021,
+        "narHash": "sha256-jgy9cMAQPcnzrlkS018gEPPQtwc/rqWrPXrIDMvLERA=",
+        "owner": "homebrew",
+        "repo": "homebrew-cask-fonts",
+        "rev": "6e69d926449a59537a5bcdf1aa5b503e8b92060a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "homebrew",
+        "repo": "homebrew-cask-fonts",
+        "type": "github"
+      }
+    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -176,11 +192,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1695577630,
-        "narHash": "sha256-d7wSugXCkKdX4AWNnbBsvp6Yb1z4O9zpAcKDyAGWlYU=",
+        "lastModified": 1695582067,
+        "narHash": "sha256-9NOL+7CpX1QfSyf4DzirmlI/fxxgbZPLIsG0MS6UsCg=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "e42071effe057a3b7620cfc7bd808cdf6eb815fa",
+        "rev": "6f4d18d9602ca7c24c5dc6045d5a6e65f1093943",
         "type": "github"
       },
       "original": {
@@ -308,6 +324,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "cask-fonts": "cask-fonts",
         "darwin": "darwin_2",
         "disko": "disko",
         "home-manager": "home-manager_2",
