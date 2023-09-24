@@ -1,9 +1,9 @@
 
 {
-  description = "Dustin's Configuration for NixOS and MacOS";
+  description = "NixOS and MacOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:dustinlyons/nixpkgs/master";
+    nixpkgs.url = "github:usrbinkat/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
@@ -26,14 +26,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     secrets = {
-      url = "git+ssh://git@github.com/dustinlyons/nix-secrets.git";
+      url = "git+ssh://git@github.com/usrbinkat/nix-secrets.git";
       flake = false;
     };
   };
 
   outputs = { self, darwin, nix-homebrew, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
     let
-      user = "dustin";
+      user = "usrbinkat";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
       darwinSystems = [ "aarch64-darwin" ];
       forAllLinuxSystems = f: nixpkgs.lib.genAttrs linuxSystems (system: f system);
@@ -83,7 +83,7 @@
 
       devShells = forAllSystems devShell;
       apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
-      darwinConfigurations = let user = "dustin"; in {
+      darwinConfigurations = let user = "usrbinkat"; in {
         "Dustins-MBP" = darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           specialArgs = inputs;
@@ -106,7 +106,7 @@
           ];
         };
       };
-      nixosConfigurations = let user = "dustin"; in {
+      nixosConfigurations = let user = "usrbinkat"; in {
         felix = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = inputs;

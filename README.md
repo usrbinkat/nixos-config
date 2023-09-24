@@ -1,7 +1,7 @@
 <img src="https://user-images.githubusercontent.com/1292576/190241835-41469235-f65d-4d4b-9760-372cdff7a70f.png" width="48">
 
 # Nix for MacOS + NixOS
-![GitHub last commit](https://img.shields.io/github/last-commit/dustinlyons/nixos-config?style=plastic)
+![GitHub last commit](https://img.shields.io/github/last-commit/usrbinkat/nixos-config?style=plastic)
 
 # Overview
 Hey, you made it! Welcome. 🤓 
@@ -42,20 +42,20 @@ Check out the starter templates below to get started!
 # Videos 
 ## MacOS
 ### Updating dependencies with one command
-https://github.com/dustinlyons/nixos-config/assets/1292576/2168d482-6eea-4b51-adc1-2ef1291b6598
+https://github.com/usrbinkat/nixos-config/assets/1292576/2168d482-6eea-4b51-adc1-2ef1291b6598
 
 ### Instant Emacs 29 thanks to daemon mode
 **GUI**
 
-https://github.com/dustinlyons/nixos-config/assets/1292576/66001066-2bbf-4492-bc9e-60ea1abeb987
+https://github.com/usrbinkat/nixos-config/assets/1292576/66001066-2bbf-4492-bc9e-60ea1abeb987
 
 **Terminal**
 
-https://github.com/dustinlyons/nixos-config/assets/1292576/d96f59ce-f540-4f14-bc61-6126a74f9f52
+https://github.com/usrbinkat/nixos-config/assets/1292576/d96f59ce-f540-4f14-bc61-6126a74f9f52
 
 ## NixOS
 
-https://github.com/dustinlyons/nixos-config/assets/1292576/fa54a87f-5971-41ee-98ce-09be048018b8
+https://github.com/usrbinkat/nixos-config/assets/1292576/fa54a87f-5971-41ee-98ce-09be048018b8
 
 # Installing
 ## For MacOS
@@ -75,12 +75,12 @@ curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix 
 ### 3. Initialize a starter template
 This is a simplified version without secrets management.
 ```sh
-nix flake init -t github:dustinlyons/nixos-config#starter
+nix flake init -t github:usrbinkat/nixos-config#starter
 ```
 
 This is a full version with secrets management.
 ```sh
-nix flake init -t github:dustinlyons/nixos-config#starterWithSecrets
+nix flake init -t github:usrbinkat/nixos-config#starterWithSecrets
 ```
 
 ### 4. Apply your current user info
@@ -120,18 +120,18 @@ Before geneating your first build, these keys need to exist in your `~/.ssh` dir
 This script auto-detects a USB drive connected to the current system.
 > Keys must be named `id_ed25519` and `id_ed25519_agenix`.
 ```sh
-nix run github:dustinlyons/nixos-config#copyKeys
+nix run github:usrbinkat/nixos-config#copyKeys
 ```
 
 ##### Create new keys
 ```sh
-nix run github:dustinlyons/nixos-config#createKeys
+nix run github:usrbinkat/nixos-config#createKeys
 ```
 
 ##### Check existing keys
 If you're rolling your own, just check they are installed correctly.
 ```sh
-nix run github:dustinlyons/nixos-config#checkKeys
+nix run github:usrbinkat/nixos-config#checkKeys
 ```
 
 ### 7. Install configuration
@@ -169,18 +169,18 @@ Before geneating your first build, these keys need to exist in your `~/.ssh` dir
 This script auto-detects a USB drive connected to the current system.
 > Keys must be named `id_ed25519` and `id_ed25519_agenix`.
 ```sh
-nix run --extra-experimental-features 'nix-command flakes' github:dustinlyons/nixos-config#copyKeys
+nix run --extra-experimental-features 'nix-command flakes' github:usrbinkat/nixos-config#copyKeys
 ```
 
 ##### Create new keys
 ```sh
-nix run --extra-experimental-features 'nix-command flakes' github:dustinlyons/nixos-config#createKeys
+nix run --extra-experimental-features 'nix-command flakes' github:usrbinkat/nixos-config#createKeys
 ```
 
 ##### Check existing keys
 If you're rolling your own, just check they are installed correctly.
 ```sh
-nix run --extra-experimental-features 'nix-command flakes' github:dustinlyons/nixos-config#checkKeys
+nix run --extra-experimental-features 'nix-command flakes' github:usrbinkat/nixos-config#checkKeys
 ```
 
 ### 3. Install configuration
@@ -195,12 +195,12 @@ After the keys are in place, you're good to go. Run either of these commands:
 
 **Simple**
 ```sh
-nix run --extra-experimental-features 'nix-command flakes' github:dustinlyons/nixos-config#install
+nix run --extra-experimental-features 'nix-command flakes' github:usrbinkat/nixos-config#install
 ```
 
 **With secrets**
 ```sh
-nix run --extra-experimental-features 'nix-command flakes' github:dustinlyons/nixos-config#installWithSecrets
+nix run --extra-experimental-features 'nix-command flakes' github:usrbinkat/nixos-config#installWithSecrets
 ```
 
 ### 4. Set user password
@@ -246,7 +246,7 @@ When changing secrets after your configuration exists, be sure to run `nix flake
 Not yet available. Coming soon.
 
 ```sh
-nix run --extra-experimental-features 'nix-command flakes' github:dustinlyons/nixos-config#live
+nix run --extra-experimental-features 'nix-command flakes' github:usrbinkat/nixos-config#live
 ```
 
 # Making changes
@@ -300,5 +300,3 @@ nix flake update
 > "All we have to decide is what to do with the time that is given us." - J.R.R. Tolkien
 
 [![Star History Chart](https://api.star-history.com/svg?repos=dustinlyons/nixos-config&type=Date)](https://star-history.com/#dustinlyons/nixos-config&Date)
-
-[![Follow @dustinhlyons](https://github.com/dustinlyons/dustinlyons/assets/1292576/3d214b95-6c93-4967-8c72-862fa494e664)](https://www.twitter.com/dustinhlyons)

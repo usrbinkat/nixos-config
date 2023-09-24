@@ -1,6 +1,6 @@
 { config, inputs, pkgs, agenix, ... }:
 
-let user = "dustin";
+let user = "usrbinkat";
     keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOk8iAnIaa1deoc7jw8YACPNVka1ZFJxhnU4G74TmS+p" ]; in
 {
   imports = [
@@ -277,13 +277,13 @@ let user = "dustin";
   services.emacs = {
     enable = true;
     package = pkgs.emacs-unstable;
-    startupTimeout = "7min"; # dustinlyons/nixpkgs
+    startupTimeout = "7min"; # usrbinkat/nixpkgs
   };
 
   fonts.packages = with pkgs; [
     dejavu_fonts
     emacs-all-the-icons-fonts
-    feather-font # dustinlyons/nixpkgs
+    feather-font # usrbinkat/nixpkgs
     jetbrains-mono
     font-awesome
     noto-fonts

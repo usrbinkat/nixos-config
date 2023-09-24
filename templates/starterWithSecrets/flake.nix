@@ -3,7 +3,7 @@
   description = "Starter Configuration for NixOS and MacOS";
 
   inputs = {
-    nixpkgs.url = "github:dustinlyons/nixpkgs/master";
+    nixpkgs.url = "github:usrbinkat/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
@@ -26,7 +26,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     secrets = {
-      url = "git+ssh://git@github.com/dustinlyons/nix-secrets.git"; # Change this!
+      url = "git+ssh://git@github.com/usrbinkat/nix-secrets.git"; # Change this!
       flake = false;
     };
   };
