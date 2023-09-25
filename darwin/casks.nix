@@ -25,6 +25,7 @@
   "vlc"
 
   # Productivity Tools
+  "obsidian"
   "raycast"
   "asana"
 

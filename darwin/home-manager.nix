@@ -100,7 +100,7 @@ in
   # Fully declarative dock using the latest from Nix Store
   local.dock.enable = true;
   local.dock.entries = [
-    { path = "/Applications/Amethyst.app/"; }
+    { path = "/Applications/Obsidian.app/"; }
     { path = "/Applications/Discord.app/"; }
     { path = "/Applications/Slack.app/"; }
     { path = "/Applications/Element.app/"; }
