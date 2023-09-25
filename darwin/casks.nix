@@ -2,6 +2,7 @@
 
 [
   # Development Tools
+  "obs"
   "homebrew/cask/docker"
   "insomnia"
   "ngrok"
