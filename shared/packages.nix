@@ -43,7 +43,7 @@ with pkgs; [
   gopls
   ngrok
   ssm-session-manager-plugin
-  pulumi
+  pulumi-bin
   terraform
   terraform-ls
   tflint
