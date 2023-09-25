@@ -4,6 +4,20 @@ let name = "Kat Morgan";
     user = "usrbinkat";
     email = "kat@braincraft.io"; in
 {
+  # Direnv
+  direnv = {
+    enable = true;
+    #nix-direnv.enaable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    # https://direnv.net/man/direnv.toml.1.html
+    # https://mipmip.github.io/home-manager-option-search/?query=direnv
+    # https://github.com/nix-community/nix-direnv
+    #config = {
+    #  "load_dotenv" = "true";
+    #  "warn_timeout" = "1m";
+    #};
+  };
   # Shared shell configuration
   zsh.enable = true;
   zsh.autocd = false;
