@@ -265,11 +265,20 @@ let name = "Kat Morgan";
 
   ssh = {
     enable = true;
-
     compression = true;
     forwardAgent = true;
+    matchBlocks = {
+      honeypot = {
+        hostname = "192.168.1.91";
+        user = "usrbinkat";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa";
+      };
+    };
     extraConfig = lib.mkMerge [
       ''
+        AddKeysToAgent yes
+
         Host github.com
           Hostname github.com
           IdentitiesOnly yes
