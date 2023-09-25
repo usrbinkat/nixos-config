@@ -71,6 +71,7 @@ with pkgs; [
   gh
 
   # Text and terminal utilities
+  starship
   htop
   hunspell
   iftop

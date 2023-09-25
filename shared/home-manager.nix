@@ -258,9 +258,16 @@ let name = "Kat Morgan";
     };
   };
 
+  starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   ssh = {
     enable = true;
 
+    compression = true;
+    forwardAgent = true;
     extraConfig = lib.mkMerge [
       ''
         Host github.com
