@@ -2,7 +2,6 @@
 
 [
   # Development Tools
-  "obs"
   "homebrew/cask/docker"
   "insomnia"
   "ngrok"
@@ -10,6 +9,7 @@
   "visual-studio-code"
 
   # Communication Tools
+  "obs"
   "discord"
   "loom"
   "notion"
@@ -26,12 +26,15 @@
   "vlc"
 
   # Productivity Tools
+  "rectangle"
   "obsidian"
   "raycast"
   "asana"
 
   # Browsers
   "google-chrome"
+  "vivaldi"
+  "arc"
 
   # AI
   "diffusionbee"
