@@ -42,6 +42,7 @@ with pkgs; [
   gopls
   ngrok
   ssm-session-manager-plugin
+  pulumi
   terraform
   terraform-ls
   tflint
@@ -84,6 +85,6 @@ with pkgs; [
   zsh-powerlevel10k
 
   # Python packages
-  python39
-  python39Packages.virtualenv
+  python311
+  python311Packages.virtualenv
 ]

@@ -28,7 +28,9 @@ let user = "usrbinkat"; in
 
     # Turn this on to make command line easier
     extraOptions = ''
+      auto-optimise-store = true
       experimental-features = nix-command flakes
+      extra-platforms = x86_64-darwin aarch64-darwin
     '';
   };
 
@@ -55,6 +57,9 @@ let user = "usrbinkat"; in
     StandardErrorPath = "/tmp/emacs.err.log";
     StandardOutPath = "/tmp/emacs.out.log";
   };
+
+  # Enable TouchID for Sudo
+  security.pam.enableSudoTouchIdAuth = true;
 
   system = {
     stateVersion = 4;

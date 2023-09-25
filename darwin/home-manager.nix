@@ -102,16 +102,15 @@ in
   local.dock.entries = [
     { path = "/Applications/Amethyst.app/"; }
     { path = "/Applications/Discord.app/"; }
-    { path = "/Applications/Docker.app/"; }
     { path = "/Applications/Slack.app/"; }
     { path = "/Applications/Element.app/"; }
-    { path = "/Applications/Google\ Chrome.app/"; }
-    { path = "/Applications/Safari.app/"; }
-    { path = "/Applications/Insomnia.app/"; }
-    { path = "/Applications/iTerm.app/"; }
     { path = "/Applications/Spotify.app/"; }
-    { path = "/Applications/Asana.app/"; }
+    { path = "/Applications/Google Chrome.app/"; }
+    { path = "/Applications/Safari.app/"; }
     { path = "/Applications/Visual Studio Code.app/"; }
+    { path = "/Applications/Insomnia.app/"; }
+    { path = "/Applications/Docker.app/"; }
+    { path = "/Applications/iTerm.app/"; }
     {
       path = "${config.users.users.${user}.home}/Git/";
       section = "others";
