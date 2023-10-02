@@ -109,7 +109,7 @@ in
     { path = "/Applications/Safari.app/"; }
     { path = "/Applications/Visual Studio Code.app/"; }
     { path = "/Applications/Insomnia.app/"; }
-    { path = "/Applications/Docker.app/"; }
+    { path = "/Applications/Docker.app/Contents/MacOS/Docker\ Desktop.app/"; }
     { path = "/Applications/iTerm.app/"; }
     {
       path = "${config.users.users.${user}.home}/Git/";

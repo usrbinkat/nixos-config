@@ -2,7 +2,6 @@
 
 with pkgs; [
   # General packages for development and system management
-  fish
   direnv
   act
   alacritty
@@ -23,6 +22,7 @@ with pkgs; [
   sqlite
   wget
   zip
+  kind
 
   # Encryption and security tools
   _1password

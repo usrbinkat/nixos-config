@@ -282,11 +282,17 @@ let name = "Kat Morgan";
     compression = true;
     forwardAgent = true;
     matchBlocks = {
+     herethegpu = {
+        hostname = "75.26.213.116";
+        user = "kat";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa.studio";
+      };
       honeypot = {
         hostname = "192.168.1.91";
         user = "usrbinkat";
         forwardAgent = true;
-        identityFile = "~/.ssh/id_rsa";
+        identityFile = "~/.ssh/id_rsa.studio";
       };
     };
     extraConfig = lib.mkMerge [
