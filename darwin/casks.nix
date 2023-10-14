@@ -2,6 +2,8 @@
 
 [
   # Development Tools
+  "dotnet"
+  #"pulumi/tap/pulumi"
   "homebrew/cask/docker"
   "insomnia"
   "ngrok"

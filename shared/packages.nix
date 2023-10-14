@@ -2,6 +2,8 @@
 
 with pkgs; [
   # General packages for development and system management
+  watch
+  fish
   direnv
   act
   alacritty
@@ -40,11 +42,11 @@ with pkgs; [
   cloudflared
   flyctl
   google-cloud-sdk
-  go
+  go_1_21
   gopls
   ngrok
   ssm-session-manager-plugin
-  pulumi-bin
+  #pulumi-bin # package is lagging behind upstream pulumi
   terraform
   terraform-ls
   tflint

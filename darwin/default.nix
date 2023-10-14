@@ -1,6 +1,8 @@
 { agenix, config, pkgs, ... }:
 
-let user = "usrbinkat"; in
+let
+  user = "usrbinkat";
+in
 {
 
   imports = [
