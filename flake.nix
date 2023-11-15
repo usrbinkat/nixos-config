@@ -3,6 +3,7 @@
   description = "Starter Configuration for NixOS and MacOS";
 
   inputs = {
+    #nixpkgs.url = "github:NixOS/nixpkgs/master";
     nixpkgs.url = "github:usrbinkat/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
