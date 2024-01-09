@@ -36,10 +36,11 @@ with pkgs; [
   yubikey-manager
 
   # Cloud-related tools and SDKs
+  kubernetes-helm
+  k9s
   docker
   docker-compose
   awscli2
-  cloudflared
   flyctl
   google-cloud-sdk
   go_1_21
@@ -53,15 +54,18 @@ with pkgs; [
 
   # Media-related packages
   emacs-all-the-icons-fonts
+  imagemagick
   dejavu_fonts
   ffmpeg
   fd
   font-awesome
   glow
   hack-font
+  jpegoptim
+  meslo-lgs-nf
   noto-fonts
   noto-fonts-emoji
-  meslo-lgs-nf
+  pngquant
 
   # Node.js development tools
   fzf
@@ -90,6 +94,7 @@ with pkgs; [
   zsh-powerlevel10k
 
   # Python packages
+  black
   python311
   python311Packages.virtualenv
 ]

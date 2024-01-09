@@ -4,10 +4,26 @@ VERSION=1.0
 
 GREEN='\033[1;32m'
 RED='\033[1;31m'
-CLEAR='\033[0m'
+NC='\033[0m'
 
-sudo echo
-echo -e "${GREEN}Starting...${CLEAR}"
+SYSTEM=$(uname -m)
 
-sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK /run/current-system/sw/bin/nixos-rebuild switch --flake .#nixos $@
-echo -e "${GREEN}Done${CLEAR}"
+case "$SYSTEM" in
+  x86_64)
+    FLAKE_TARGET="x86_64-linux"
+    ;;
+  aarch64)
+    FLAKE_TARGET="aarch64-linux"
+    ;;
+  *)
+    echo -e "${RED}Unsupported architecture: $SYSTEM${NC}"
+    exit 1
+    ;;
+esac
+
+echo -e "${GREEN}Starting...${NC}"
+
+# We pass SSH from user to root so root can download secrets from your private Github
+sudo SSH_AUTH_SOCK=$SSH_AUTH_SOCK /run/current-system/sw/bin/nixos-rebuild switch --flake .#$FLAKE_TARGET $@
+
+echo -e "${GREEN}Done${NC}"

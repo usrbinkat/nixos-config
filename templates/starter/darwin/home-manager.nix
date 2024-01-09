@@ -8,7 +8,7 @@ let
     emacsclient -c -n &
   '';
   sharedFiles = import ../shared/files.nix { inherit config pkgs; };
-  additionalFiles = import ./files.nix { inherit config pkgs; };
+  additionalFiles = import ./files.nix { inherit user config pkgs; };
 in
 {
   imports = [
@@ -70,8 +70,6 @@ in
     { path = "/System/Applications/Photos.app/"; }
     { path = "/System/Applications/Photo Booth.app/"; }
     { path = "/System/Applications/TV.app/"; }
-    { path = "/Applications/Asana.app/"; }
-    { path = "/Applications/Drafts.app/"; }
     { path = "/System/Applications/Home.app/"; }
     {
       path = toString myEmacsLauncher;

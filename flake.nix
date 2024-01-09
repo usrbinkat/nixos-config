@@ -4,7 +4,7 @@
 
   inputs = {
     #nixpkgs.url = "github:NixOS/nixpkgs/master";
-    nixpkgs.url = "github:usrbinkat/nixpkgs/master";
+    nixpkgs.url = "github:dustinlyons/nixpkgs/master";
     agenix.url = "github:ryantm/agenix";
     home-manager.url = "github:nix-community/home-manager";
     darwin = {
@@ -14,6 +14,10 @@
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
     };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
       flake = false;
@@ -22,10 +26,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     }; 
-    cask-fonts = {
-      url = "github:homebrew/homebrew-cask-fonts";
-      flake = false;
-    }; 
+    #cask-fonts = {
+    #  url = "github:homebrew/homebrew-cask-fonts";
+    #  flake = false;
+    #}; 
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,8 +39,7 @@
       flake = false;
     };
   };
-
-  outputs = { self, darwin, nix-homebrew, homebrew-core, homebrew-cask, cask-fonts, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
     let
       user = "usrbinkat";
       systems = [ "x86_64-linux" "aarch64-darwin" ];
@@ -71,7 +74,7 @@
                 taps = {
                   "homebrew/homebrew-core" = homebrew-core;
                   "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-cask-fonts" = cask-fonts;
+                  "homebrew/homebrew-bundle" = homebrew-bundle;
                 };
                 mutableTaps = false;
                 autoMigrate = true;
@@ -81,7 +84,6 @@
           ];
         };
       };
-
       nixosConfigurations = let user = "usrbinkat"; in {
         nixos = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";

@@ -282,9 +282,9 @@ let name = "Kat Morgan";
     compression = true;
     forwardAgent = true;
     matchBlocks = {
-     herethegpu = {
-        hostname = "75.26.213.116";
-        user = "kat";
+      mordor = {
+        hostname = "192.168.1.21";
+        user = "kc2admin";
         forwardAgent = true;
         identityFile = "~/.ssh/id_rsa.studio";
       };
@@ -293,6 +293,49 @@ let name = "Kat Morgan";
         user = "usrbinkat";
         forwardAgent = true;
         identityFile = "~/.ssh/id_rsa.studio";
+      };
+      vyos = {
+        hostname = "192.168.1.1";
+        user = "vyos";
+        port = 2222;
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa.studio";
+      };
+      qotom = {
+        hostname = "192.168.1.2";
+        user = "kc2admin";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa.studio";
+      };
+      herethegpu = {
+        hostname = "75.26.213.116";
+        user = "kat";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa.studio";
+      };
+      tpi00 = {
+        hostname = "192.168.1.70";
+        user = "ubuntu";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa";
+      };
+      tpi01 = {
+        hostname = "192.168.1.71";
+        user = "ubuntu";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa";
+      };
+      tpi02 = {
+        hostname = "192.168.1.72";
+        user = "ubuntu";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa";
+      };
+      tpi03 = {
+        hostname = "192.168.1.73";
+        user = "ubuntu";
+        forwardAgent = true;
+        identityFile = "~/.ssh/id_rsa";
       };
     };
     extraConfig = lib.mkMerge [

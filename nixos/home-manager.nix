@@ -16,9 +16,9 @@ let
   });
 
   polybar-config = pkgs.substituteAll {
-      src = ./config/polybar/config.ini;
-      font0 = "DejaVu Sans:size=12;3";
-      font1 = "feather:size=12;3"; # usrbinkat/nixpkgs
+    src = ./config/polybar/config.ini;
+    font0 = "DejaVu Sans:size=12;3";
+    font1 = "feather:size=12;3"; # usrbinkat/nixpkgs
   };
 
   polybar-modules = builtins.readFile ./config/polybar/modules.ini;
@@ -37,7 +37,7 @@ in
     username = "${user}";
     homeDirectory = "/home/${user}";
     packages = pkgs.callPackage ./packages.nix {};
-    file = shared-files // import ./files.nix { inherit user; };
+    file = shared-files // import ./files.nix { inherit user pkgs; };
     stateVersion = "21.05";
   };
 

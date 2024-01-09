@@ -7,16 +7,280 @@ let
   xdg_stateHome  = "${home}/.local/state"; in
 {
 
+  "${xdg_configHome}/bspwm/bspwmrc" = {
+    executable = true;
+    text = ''
+      #! /bin/sh
+      #
+      # Set the number of workspaces
+      bspc monitor -d 1 2 3 4 5 6
+
+      # Launch keybindings daemon
+      pgrep -x sxhkd > /dev/null || sxhkd &
+
+      # Window configurations
+      bspc config border_width         0
+      bspc config window_gap          16
+      bspc config split_ratio          0.52
+      bspc config borderless_monocle   true
+      bspc config gapless_monocle      true
+
+      # Padding outside of the window
+      bspc config top_padding            60
+      bspc config bottom_padding         60
+      bspc config left_padding           60
+      bspc config right_padding          60
+
+      # Move floating windows
+      bspc config pointer_action1 move
+
+      # Resize floating windows
+      bspc config pointer_action2 resize_side
+      bspc config pointer_action2 resize_corner
+
+      # Set background and top bar
+      feh --bg-scale $HOME/.local/share/img/wallpaper/active
+      systemctl --user start polybar
+
+      sleep .25
+
+      # Launch these when script runs
+      # -o option means "one shot", meaning the rule goes away after launching the app
+
+      # Wait for the network to be up
+      notify-send 'Waiting for network...'
+      while ! systemctl is-active --quiet network-online.target; do sleep 1; done
+      notify-send 'Network found.'
+
+      # Wait for the Emacs daemon
+      notify-send 'Starting Emacs...'
+      /run/current-system/sw/bin/emacsclient -a "" -e '(progn)' &
+
+      # Desktop 1
+      # Email, Calendar, News (General)
+      bspc rule -a Google-chrome -o desktop='^1'
+      /etc/profiles/per-user/dustin/bin/google-chrome-stable "https://www.fastmail.com" "https://calendar.google.com/calendar/u/0/r" &!
+
+      sleep 1
+
+      bspc rule -a Google-chrome -o desktop='^1'
+      /etc/profiles/per-user/dustin/bin/google-chrome-stable --new-window "https://www.techmeme.com" "https://www.inoreader.com/" &!
+
+      sleep 1
+
+      # Wait for Emacs daemon to be ready
+      while ! /run/current-system/sw/bin/emacsclient -e '(progn)' &>/dev/null; do
+      sleep 1
+      done
+      notify-send 'Emacs daemon started.'
+
+      # Desktop 2
+      # Terminal, Emacs (IDE)
+      bspc rule -a Alacritty -o desktop='^2'
+      /etc/profiles/per-user/dustin/bin/alacritty -e sh -c 'tmux attach || tmux new-session' &
+
+      sleep 1
+
+      bspc rule -a Emacs -o desktop='^2'
+      /run/current-system/sw/bin/emacsclient -c &!
+
+      sleep .5
+
+      # Desktop 3
+      # ChatGPT, Emacs
+      bspc rule -a Google-chrome -o desktop='^3'
+      /etc/profiles/per-user/dustin/bin/google-chrome-stable --new-window "https://chat.openai.com" &!
+
+      sleep .5
+
+      bspc rule -a Emacs -o desktop='^3'
+      /run/current-system/sw/bin/emacsclient -c &!
+
+      sleep .5
+
+      # Desktop 5
+      # Apple Music
+      bspc rule -a Cider -o desktop='^5'
+      /etc/profiles/per-user/dustin/bin/cider &!
+
+      sleep 1
+    '';
+  };
+
+  "${xdg_configHome}/sxhkd/sxhkdrc" = {
+    text = ''
+    # Close window
+    alt + F4
+        bspc node --close
+
+    # Make split ratios equal
+    super + equal
+          bspc node @/ --equalize
+
+    # Make split ratios balanced
+    super + minus
+          bspc node @/ --balance
+
+    # Toogle tiling of window
+    super + d
+          bspc query --nodes -n focused.tiled && state=floating || state=tiled; \
+          bspc node --state \~$state
+
+    # Toggle fullscreen of window
+    super + f
+          bspc node --state \~fullscreen
+
+    # Swap the current node and the biggest window
+    super + g
+          bspc node -s biggest.window
+
+    # Swap the current node and the smallest window
+    super + shift + g
+          bspc node -s biggest.window
+
+    # Alternate between the tiled and monocle layout
+    super + m
+          bspc desktop -l next
+
+    # Move between windows in monocle layout
+    super + {_, alt + }m
+          bspc node -f {next, prev}.local.!hidden.window
+
+    # Focus the node in the given direction
+    super + {_,shift + }{h,j,k,l}
+          bspc node -{f,s} {west,south,north,east}
+
+    # Focus left/right occupied desktop
+    super + {Left,Right}
+          bspc desktop --focus {prev,next}.occupied
+
+    # Focus left/right occupied desktop
+    super + {Up,Down}
+          bspc desktop --focus {prev,next}.occupied
+
+    # Focus left/right desktop
+    ctrl + alt + {Left,Right}
+         bspc desktop --focus {prev,next}
+
+    # Focus left/right desktop
+    ctrl + alt + {Up, Down}
+         bspc desktop --focus {prev,next}
+
+    # Focus the older or newer node in the focus history
+    super + {o,i}
+          bspc wm -h off; \
+          bspc node {older,newer} -f; \
+          bspc wm -h on
+
+    # Focus or send to the given desktop
+    super + {_,shift + }{1-9,0}
+          bspc {desktop -f,node -d} '^{1-9,10}'
+
+    # Preselect the direction
+    super + alt + {h,j,k,l}
+          bspc node -p {west,south,north,east}
+
+    # Cancel the preselect
+    # For context on syntax: https://github.com/baskerville/bspwm/issues/344
+    super + alt + {_,shift + }Escape
+          bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+    # Preselect the direction
+    super + ctrl + {h,j,k,l}
+          bspc node -p {west,south,north,east}
+
+    # Cancel the preselect
+    # For context on syntax: https://github.com/baskerville/bspwm/issues/344
+    super + ctrl + {_,shift + }Escape
+          bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+    # Set the node flags
+    super + ctrl + {m,x,s,p}
+          bspc node -g {marked,locked,sticky,private}
+
+    # Send the newest marked node to the newest preselected node
+    super + y
+          bspc node newest.marked.local -n newest.!automatic.local
+
+    # Program launcher
+    super + @space
+          rofi -config -no-lazy-grab -show drun -modi drun -theme /home/${user}/.config/rofi/launcher.rasi
+
+    # Terminal emulator
+    super + Return
+          bspc rule -a Alacritty -o state=floating rectangle=1024x768x0x0 center=true && /etc/profiles/per-user/${user}/bin/alacritty
+
+    # Terminal emulator
+    super + ctrl + Return
+          /etc/profiles/per-user/${user}/bin/alacritty
+
+    # Jump to workspaces
+    super + t
+          bspc desktop --focus ^2
+    super + b
+          bspc desktop --focus ^1
+    super + w
+          bspc desktop --focus ^4
+    super + Tab
+          bspc {node,desktop} -f last
+
+    # Keepass XC
+    super + shift + x
+          /etc/profiles/per-user/${user}/bin/keepassxc
+
+    # Emacs
+    # -c flag is --create-frame
+    # -a flag is fallback to plain emacs if daemon fails
+    super + alt + Return
+         emacsclient -c -a emacs
+
+    super + alt + e
+         systemctl --user restart emacs.service && \
+         emacsclient -c -a emacs
+
+    # Web browser
+    ctrl + alt + Return
+         google-chrome-stable
+
+    # File browser at home dir
+    super + shift + @space
+         pcmanfm
+
+    # Take a screenshot with PrintSc
+    Print
+         flameshot gui -c -p $HOME/.local/share/img/screenshots
+
+    # Lock the screen
+    ctrl + alt + BackSpace
+         i3lock
+
+    # Audio controls for + volume
+    XF86AudioRaiseVolume
+        pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+    # Audio controls for - volume
+    XF86AudioLowerVolume
+        pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+    # Audio controls for mute
+    XF86AudioMute
+        pactl set-sink-mute @DEFAULT_SINK@ toggle
+    '';
+  };
+
   "${xdg_configHome}/polybar/bin/popup-calendar.sh" = {
     executable = true;
     text = ''
       #!/bin/sh
 
       DATE="$(/run/current-system/sw/bin/date +"%B %d, %Y")"
+      SCREEN_WIDTH=$(/run/current-system/sw/bin/xrandr | /run/current-system/sw/bin/grep '*' | /run/current-system/sw/bin/awk '{print $1}' | /run/current-system/sw/bin/cut -d 'x' -f1)
+      POSX=$(( (SCREEN_WIDTH / 2) - ((SCREEN_WIDTH / 2 * 625) / 10000) ))
+
       case "$1" in
       --popup)
           /etc/profiles/per-user/${user}/bin/yad --calendar --fixed \
-            --posx=1800 --posy=80 --no-buttons --borders=0 --title="yad-calendar" \
+            --posx=$POSX --posy=80 --no-buttons --borders=0 --title="yad-calendar" \
             --close-on-unfocus
         ;;
       *)
@@ -60,7 +324,7 @@ let
     text = ''
       #!/bin/sh
 
-      rofi -no-config -no-lazy-grab -show drun -modi drun -theme ${xdg_configHome}/rofi/launcher.rasi
+      rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/launcher.rasi
     '';
   };
 
@@ -70,7 +334,7 @@ let
     text = ''
       #!/bin/sh
 
-      configDir="~/.local/share/src/nixos-config/nixos/config/rofi"
+      configDir="~${xdg_configHome}/rofi"
       uptime=$(uptime -p | sed -e 's/up //g')
       rofi_command="rofi -no-config -theme $configDir/powermenu.rasi"
 

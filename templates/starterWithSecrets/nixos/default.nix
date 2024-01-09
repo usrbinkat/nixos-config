@@ -24,9 +24,9 @@ let user = "usrbinkat";
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
-  networking.hostName = "felix"; # Define your hostname.
+  networking.hostName = "%HOST%"; # Define your hostname.
   networking.useDHCP = false;
-  networking.interfaces.eno1.useDHCP = true;
+  networking.interfaces.%INTERFACE%.useDHCP = true;
 
   # Turn on flag for proprietary software
   nix = {
@@ -46,18 +46,18 @@ let user = "usrbinkat";
 
   services.xserver.enable = true;
 
-  # Uncomment these for AMD GPU
+  # Uncomment these for AMD or Nvidia GPU
   # boot.initrd.kernelModules = [ "amdgpu" ];
   # services.xserver.videoDrivers = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
 
   # Comment this for AMD GPU
   # This helps fix tearing of windows for Nvidia cards
-  services.xserver.screenSection = ''
-    Option       "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
-    Option       "AllowIndirectGLXProtocol" "off"
-    Option       "TripleBuffer" "on"
-  '';
+  # services.xserver.screenSection = ''
+  #   Option       "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+  #   Option       "AllowIndirectGLXProtocol" "off"
+  #   Option       "TripleBuffer" "on"
+  # '';
 
   # LightDM Display Manager
   services.xserver.displayManager.defaultSession = "none+bspwm";
@@ -70,8 +70,6 @@ let user = "usrbinkat";
   # Tiling window manager
   services.xserver.windowManager.bspwm = {
     enable = true;
-    configFile = ./config/bspwmrc;
-    sxhkd.configFile = ./config/sxhkdrc;
   };
 
   # Turn Caps Lock into Ctrl
@@ -79,18 +77,16 @@ let user = "usrbinkat";
   services.xserver.xkbOptions = "ctrl:nocaps";
 
   # Enable CUPS to print documents
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.brlaser ]; # Brother printer driver
+  # services.printing.enable = true;
+  # services.printing.drivers = [ pkgs.brlaser ]; # Brother printer driver
 
   # Enable sound
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  # sound.enable = true;
+  # hardware.pulseaudio.enable = true;
 
   # Video support
   hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.driSupport = true;
-  hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.modesetting.enable = true;
 
   # Enable Xbox support
   # hardware.xone.enable = true;

@@ -10,10 +10,6 @@ with pkgs; [
   bat
   btop
   coreutils
-  difftastic
-  du-dust
-  gcc
-  git-filter-repo
   killall
   neofetch
   openssh
@@ -23,7 +19,6 @@ with pkgs; [
   zip
 
   # Encryption and security tools
-  _1password
   age
   age-plugin-yubikey
   gnupg
@@ -32,18 +27,16 @@ with pkgs; [
   yubikey-manager
 
   # Cloud-related tools and SDKs
-  docker
-  docker-compose
+  #
+  # docker marked broken as of Nov 15, 2023
+  # https://github.com/NixOS/nixpkgs/issues/267685
+  #
+  # docker
+  # docker-compose
+  #
   awscli2
-  cloudflared
   flyctl
-  google-cloud-sdk
-  go
-  gopls
   ngrok
-  ssm-session-manager-plugin
-  terraform
-  terraform-ls
   tflint
 
   # Media-related packages
@@ -52,22 +45,16 @@ with pkgs; [
   ffmpeg
   fd
   font-awesome
-  glow
   hack-font
   noto-fonts
   noto-fonts-emoji
   meslo-lgs-nf
 
   # Node.js development tools
-  fzf
-  nodePackages.live-server
   nodePackages.nodemon
   nodePackages.prettier
-  nodePackages.npm
+  nodePackages.npm # globally install npm
   nodejs
-
-  # Source code management, Git, GitHub tools
-  gh
 
   # Text and terminal utilities
   htop
@@ -76,7 +63,6 @@ with pkgs; [
   jetbrains-mono
   jq
   ripgrep
-  slack
   tree
   tmux
   unrar
@@ -85,5 +71,5 @@ with pkgs; [
 
   # Python packages
   python39
-  python39Packages.virtualenv
+  python39Packages.virtualenv # globally install virtualenv
 ]
