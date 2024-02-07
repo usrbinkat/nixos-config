@@ -20,8 +20,11 @@ let name = "Kat Morgan";
   };
   # Shared shell configuration
   zsh.enable = true;
-  zsh.autocd = false;
+  zsh.autocd = true;
   zsh.cdpath = [ "~/.local/share/src" ];
+  zsh.enableAutosuggestions = true;
+  zsh.enableCompletion = true;
+  zsh.syntaxHighlighting.enable = true;
   zsh.plugins = [
     {
         name = "powerlevel10k";
@@ -44,6 +47,7 @@ let name = "Kat Morgan";
     export PATH=$HOME/.pnpm-packages/bin:$HOME/.pnpm-packages:$PATH
     export PATH=$HOME/.npm-packages/bin:$HOME/bin:$PATH
     export PATH=$HOME/.local/share/bin:$PATH
+    export PATH=/opt/homebrew/bin:$PATH
     export PNPM_HOME=~/.pnpm-packages
 
     # Remove history data we don't want to see
@@ -91,7 +95,7 @@ let name = "Kat Morgan";
             editor = "vim";
             autocrlf = "input";
       };
-      commit.gpgsign = true;
+      commit.gpgsign = false;
       pull.rebase = true;
       rebase.autoStash = true;
     };
